@@ -3,6 +3,7 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 2rem;
     text-align: center;
+    font-weight: 700;
 }
 
 p {
@@ -13,4 +14,29 @@ p {
 hr {
     padding: 0;
     margin: 0
+}
+
+#board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 350px;
+    height: 420px;
+}
+
+.tile {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: bold;
+    vertical-align: middle;
+    box-sizing: border-box;
+    color: white;
+    text-transform: uppercase;
+    user-select: none;
 }
