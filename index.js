@@ -115,7 +115,7 @@ const checkRow = () => {
             alert("You won")
         } else {
             alert("Thats wrong")
-            if (currentRow < 5) {
+            if (currentRow < rowTracker - 1) {
                 currentRow++
                 currentTile = 0
             } else {
@@ -152,15 +152,4 @@ const extendRows = () => {
         tileContainer.append(rowElement)
         guessRows.push(newRow)
     })
-
-    console.log(guessRows)
-
-    appendableRows = [
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', '']
-    ]
 }
