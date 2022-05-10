@@ -1,6 +1,8 @@
 const tileContainer = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 
+const wordle = "KENYA"
+
 const keys = [
     'Q',
     'W',
@@ -32,7 +34,7 @@ const keys = [
     '«',
 ]
 
-const guessRows = [
+let appendableRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -41,16 +43,31 @@ const guessRows = [
     ['', '', '', '', '']
 ]
 
+let guessRows = [
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', '']
+]
+
+let currentTile = 0
+let currentRow = 0
+let rowTracker = 0
+let isGameOver = false
+
 guessRows.forEach((guessRow, guessRowIndex) => {
     const rowElement = document.createElement('div')
-    rowElement.setAttribute('id', `guessRow-${guessRowIndex}`)
+    rowElement.setAttribute('id', `guessRow-${rowTracker}`)
     guessRow.forEach((guess, guessIndex) => {
         const tileElement = document.createElement('div')
-        tileElement.setAttribute('id', `guessRow-${guessRow}-tile${guessIndex}`)
+        tileElement.setAttribute('id', `guessRow-${rowTracker}-tile${guessIndex}`)
         tileElement.classList.add("tile")
         rowElement.append(tileElement)
     })
     tileContainer.append(rowElement)
+    rowTracker++
 })
 
 document.addEventListener("keydown", event => {
@@ -70,5 +87,80 @@ keys.forEach(key => {
 })
 
 const handleClick = (key) => {
-    console.log(key)
+    if (key === "ENTER") {
+        checkRow()
+    } else if (key === "«") {
+        deleteLetter()
+    } else {
+        addLetter(key)
+    }
+}
+
+const addLetter = (letter) => {
+    if (currentTile < 5) {
+        const tile = document.getElementById(`guessRow-${currentRow}-tile${currentTile}`)
+        tile.textContent = letter
+        tile.setAttribute('data', letter)
+        guessRows[currentRow][currentTile] = letter
+        currentTile++
+    }
+}
+
+const checkRow = () => {
+    const guess = guessRows[currentRow].join('')
+
+    if (currentTile === 5) {
+        if (wordle === guess) {
+            isGameOver = true;
+            alert("You won")
+        } else {
+            alert("Thats wrong")
+            if (currentRow < 5) {
+                currentRow++
+                currentTile = 0
+            } else {
+                extendRows()
+                currentRow++
+                currentTile = 0
+            }
+        }
+    }
+
+}
+
+const deleteLetter = () => {
+    if (currentTile > 0) {
+        currentTile--
+        const tile = document.getElementById(`guessRow-${currentRow}-tile${currentTile}`)
+        tile.textContent = ""
+        tile.setAttribute('data', "")
+        guessRows[currentRow][currentTile] = ""
+    }
+}
+
+const extendRows = () => {
+    appendableRows.forEach((newRow, guessRowIndex) => {
+        const rowElement = document.createElement('div')
+        rowElement.setAttribute('id', `guessRow-${rowTracker}`)
+        newRow.forEach((guess, guessIndex) => {
+            const tileElement = document.createElement('div')
+            tileElement.setAttribute('id', `guessRow-${rowTracker}-tile${guessIndex}`)
+            tileElement.classList.add("tile")
+            rowElement.append(tileElement)
+        })
+        rowTracker++
+        tileContainer.append(rowElement)
+        guessRows.push(newRow)
+    })
+
+    console.log(guessRows)
+
+    appendableRows = [
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', ''],
+        ['', '', '', '', '']
+    ]
 }
