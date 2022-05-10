@@ -1,7 +1,21 @@
 const tileContainer = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 
-const wordle = "KENYA"
+let wordle
+
+const getWordle = () => {
+    fetch(`https://random-word-api.herokuapp.com/word?length=5`)
+        .then(response => response.json())
+        .then(json => {
+            wordle = json[0].toUpperCase()
+        })
+        .catch(err => console.log(err))
+}
+getWordle()
+
+const confirmWord = (word) => {
+    return fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+}
 
 const keys = [
     'Q',
@@ -109,19 +123,27 @@ const addLetter = (letter) => {
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
     if (currentTile === 5) {
-        flipTile()
-        if (wordle === guess) {
-            isGameOver = true;
-        } else {
-            if (currentRow < rowTracker - 1) {
-                currentRow++
-                currentTile = 0
-            } else {
-                extendRows()
-                currentRow++
-                currentTile = 0
+        confirmWord(guess).then((response) => {
+            if (response.status === 200) {
+                flipTile()
+                if (wordle === guess) {
+                    isGameOver = true;
+                } else {
+                    if (currentRow < rowTracker - 1) {
+                        currentRow++
+                        currentTile = 0
+                    } else {
+                        extendRows()
+                        currentRow++
+                        currentTile = 0
+                    }
+                }
+            } else if (response.status === 404) {
+                alert("Not a word")
             }
-        }
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 
 }
