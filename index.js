@@ -11,6 +11,13 @@ document.getElementById('close-help-tab').addEventListener('click', () => {
     document.getElementById('help-section').style.display = 'none'
 })
 
+document.getElementById('play-again').addEventListener('click', () => {
+    window.location.reload();
+    document.getElementById('finished-section').style.display = 'none'
+})
+
+
+
 const getWordle = () => {
     fetch(`https://random-word-api.herokuapp.com/word?length=5`)
         .then(response => response.json())
@@ -135,6 +142,7 @@ const checkRow = () => {
             if (response.status === 200) {
                 flipTile()
                 if (wordle === guess) {
+                    setTimeout(() => document.getElementById('finished-section').style.display = 'flex', 3000)
                     isGameOver = true;
                 } else {
                     if (currentRow < rowTracker - 1) {
