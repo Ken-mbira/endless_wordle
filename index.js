@@ -108,8 +108,8 @@ const addLetter = (letter) => {
 
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
-    flipTile()
     if (currentTile === 5) {
+        flipTile()
         if (wordle === guess) {
             isGameOver = true;
         } else {
