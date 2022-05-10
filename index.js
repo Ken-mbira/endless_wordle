@@ -139,7 +139,9 @@ const checkRow = () => {
                     }
                 }
             } else if (response.status === 404) {
-                alert("Not a word")
+                const messageBoard = document.getElementById('message-display')
+                messageBoard.style.display = "flex"
+                setTimeout(() => messageBoard.style.display = "none", 3000)
             }
         }).catch((error) => {
             console.log(error)
