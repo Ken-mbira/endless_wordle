@@ -84,6 +84,25 @@ p {
     margin: 2px;
 }
 
+.example-tile-container {
+    display: flex;
+}
+
+.example-tile-container div {
+    display: flex;
+}
+
+.example-tile-container .tile {
+    width: 42px;
+    height: 42px;
+    border: 2px solid#3a3a3c;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
 
 /* width */
 
@@ -166,6 +185,42 @@ p {
         padding-left: 0;
         padding-right: 0;
     }
+}
+
+#help-section {
+    display: none;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    background-color: rgb(20, 19, 19);
+    color: white;
+}
+
+#help-section div {
+    padding-left: 1rem;
+    padding-right: 1rem
+}
+
+#help-title {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    align-items: center
+}
+
+#close-help-tab {
+    cursor: pointer;
+}
+
+.margin-ps {
+    margin-top: 1.5rem;
+    font-size: 1rem
+}
+
+.examples {
+    margin-bottom: 1rem;
 }
 
 #message-display {

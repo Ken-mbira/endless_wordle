@@ -3,6 +3,14 @@ const keyboard = document.querySelector('.key-container')
 
 let wordle
 
+document.getElementById('help-icon').addEventListener('click', () => {
+    document.getElementById('help-section').style.display = 'flex'
+})
+
+document.getElementById('close-help-tab').addEventListener('click', () => {
+    document.getElementById('help-section').style.display = 'none'
+})
+
 const getWordle = () => {
     fetch(`https://random-word-api.herokuapp.com/word?length=5`)
         .then(response => response.json())
