@@ -3,6 +3,21 @@ const keyboard = document.querySelector('.key-container')
 
 let wordle
 
+document.getElementById('help-icon').addEventListener('click', () => {
+    document.getElementById('help-section').style.display = 'flex'
+})
+
+document.getElementById('close-help-tab').addEventListener('click', () => {
+    document.getElementById('help-section').style.display = 'none'
+})
+
+document.getElementById('play-again').addEventListener('click', () => {
+    window.location.reload();
+    document.getElementById('finished-section').style.display = 'none'
+})
+
+
+
 const getWordle = () => {
     fetch(`https://random-word-api.herokuapp.com/word?length=5`)
         .then(response => response.json())
@@ -127,6 +142,7 @@ const checkRow = () => {
             if (response.status === 200) {
                 flipTile()
                 if (wordle === guess) {
+                    setTimeout(() => document.getElementById('finished-section').style.display = 'flex', 3000)
                     isGameOver = true;
                 } else {
                     if (currentRow < rowTracker - 1) {
@@ -139,7 +155,9 @@ const checkRow = () => {
                     }
                 }
             } else if (response.status === 404) {
-                alert("Not a word")
+                const messageBoard = document.getElementById('message-display')
+                messageBoard.style.display = "flex"
+                setTimeout(() => messageBoard.style.display = "none", 3000)
             }
         }).catch((error) => {
             console.log(error)

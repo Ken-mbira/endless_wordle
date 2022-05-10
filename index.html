@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/assets/wordle-icon.webp">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Endless Wordle</title>
     <link href="index.css" rel="stylesheet">
 </head>
@@ -12,8 +14,106 @@
 <body>
     <div class="game-display">
         <div class="navbar">
-            <p>Endless Wordle</p>
+            <div class="controls">
+                <div class="more-icons">
+                    <i class="material-icons" id="help-icon">question_mark</i>
+                </div>
+                <div>
+                    <p>Endless Wordle</p>
+                </div>
+                <div>
+                </div>
+            </div>
             <hr>
+        </div>
+        <div id="message-display">
+            <div>
+                <p>Sorry! But that's not a word!</p>
+            </div>
+        </div>
+        <div id="help-section">
+            <div>
+                <div id="help-title">
+                    <div></div>
+                    <h3>HOW TO PLAY</h3>
+                    <i class="material-icons" id="close-help-tab">close</i>
+                </div>
+                <p class="margin-ps">Guess the hidden word in however many tries you need</p>
+                <p class="margin-ps">Each guess must be a valid 5 letter word, you cannot enter random letters.</p>
+                <p class="margin-ps">After your submission, the color of the tiles will change as in the examples below.</p>
+                <hr>
+                <h4>Examples</h4>
+                <div class="examples" id="example-1">
+                    <div class="example-tile-container">
+                        <div class="tile green-overlay">
+                            C
+                        </div>
+                        <div class="tile">
+                            L
+                        </div>
+                        <div class="tile">
+                            O
+                        </div>
+                        <div class="tile">
+                            T
+                        </div>
+                        <div class="tile">
+                            H
+                        </div>
+                    </div>
+                    <p>The letter <span>C</span> is in the word and in the correct spot</p>
+                </div>
+                <div class="examples" id="example-1">
+                    <div class="example-tile-container">
+                        <div class="tile">
+                            C
+                        </div>
+                        <div class="tile">
+                            L
+                        </div>
+                        <div class="tile">
+                            O
+                        </div>
+                        <div class="tile">
+                            T
+                        </div>
+                        <div class="tile yellow-overlay">
+                            H
+                        </div>
+                    </div>
+                    <p>The letter <span>H</span> is in the word but in the wrong spot</p>
+                </div>
+                <div class="examples" id="example-1">
+                    <div class="example-tile-container">
+                        <div class="tile">
+                            S
+                        </div>
+                        <div class="tile">
+                            P
+                        </div>
+                        <div class="tile grey-overlay">
+                            E
+                        </div>
+                        <div class="tile">
+                            A
+                        </div>
+                        <div class="tile">
+                            R
+                        </div>
+                    </div>
+                    <p>The letter <span>E</span> is not in the word in any spot</p>
+                </div>
+                <hr>
+                <p class="margin-ps">Get a new wordle with every refresh!</p>
+            </div>
+        </div>
+        <div id="finished-section">
+            <div>
+                <p>Congratulations! You Win</p>
+                <div id="play-again-cover">
+                    <button id="play-again">Play again<i class="material-icons">refresh</i></button>
+                </div>
+            </div>
         </div>
         <div class="tile-container"></div>
         <div class="key-container"></div>

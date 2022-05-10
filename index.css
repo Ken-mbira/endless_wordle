@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+html,
+body {
+    height: 100%;
+}
+
 .game-display {
     width: 100%;
-    height: 90vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -9,11 +14,22 @@
 }
 
 .navbar {
+    width: 100%;
+    text-align: center
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
     font-family: 'Open Sans', sans-serif;
     font-size: 2rem;
-    text-align: center;
     font-weight: 700;
-    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.more-icons {
+    cursor: pointer;
 }
 
 p {
@@ -60,6 +76,25 @@ p {
 .tile-container .tile {
     width: 62px;
     height: 62px;
+    border: 2px solid#3a3a3c;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.example-tile-container {
+    display: flex;
+}
+
+.example-tile-container div {
+    display: flex;
+}
+
+.example-tile-container .tile {
+    width: 42px;
+    height: 42px;
     border: 2px solid#3a3a3c;
     box-sizing: border-box;
     display: flex;
@@ -143,4 +178,105 @@ p {
     .key-container button:nth-child(20) {
         width: 48px;
     }
+}
+
+@media screen and (max-width:600px) {
+    .controls {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+#help-section {
+    display: none;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    background-color: rgb(20, 19, 19);
+    color: white;
+}
+
+#finished-section {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.7);
+    color: white;
+}
+
+#play-again-cover {
+    display: flex;
+    justify-content: center;
+    margin-top: .5rem;
+}
+
+#help-section div {
+    padding-left: 1rem;
+    padding-right: 1rem
+}
+
+#help-title {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    align-items: center
+}
+
+#close-help-tab {
+    cursor: pointer;
+}
+
+.margin-ps {
+    margin-top: 1.5rem;
+    font-size: 1rem
+}
+
+.examples {
+    margin-bottom: 1rem;
+}
+
+#message-display {
+    display: none;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    position: fixed;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#message-display div {
+    width: 200px;
+    background-color: #ffffff;
+    color: #000000;
+    height: fit-content;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 10px;
+}
+
+#play-again {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#finished-section p {
+    font-size: 2rem;
+}
+
+#finished-section button {
+    background-color: #538d4e;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+    cursor: pointer
 }
