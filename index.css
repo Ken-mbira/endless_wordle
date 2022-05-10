@@ -49,6 +49,8 @@ p {
 .tile-container {
     width: 330px;
     margin-bottom: 30px;
+    min-height: 400px;
+    overflow-y: scroll;
 }
 
 .tile-container div {
@@ -64,6 +66,34 @@ p {
     justify-content: center;
     align-items: center;
     margin: 2px;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 @media screen and (max-width:700px) {
