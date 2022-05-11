@@ -190,6 +190,10 @@ const extendRows = () => {
         tileContainer.append(rowElement)
         guessRows.push(newRow)
     })
+    tileContainer.scroll({
+        top: tileContainer.scrollTop += 350,
+        behavior: "smooth"
+    })
 }
 
 const flipTile = () => {
