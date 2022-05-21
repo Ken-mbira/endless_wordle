@@ -19,16 +19,16 @@ document.getElementById('play-again').addEventListener('click', () => {
 
 
 const getWordle = () => {
-    fetch(`https://random-word-api.herokuapp.com/word?length=5`)
+    fetch(`${window.location.protocol}//${window.location.hostname}:8000/word`)
         .then(response => response.json())
         .then(json => {
-            wordle = json[0].toUpperCase()
+            wordle = json["word"]
         })
 }
 getWordle()
 
 const confirmWord = (word) => {
-    return fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+    return fetch(`${window.location.protocol}//${window.location.hostname}:8000/check?word=${word}`)
 }
 
 
@@ -138,28 +138,30 @@ const addLetter = (letter) => {
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
     if (currentTile === 5) {
-        confirmWord(guess).then((response) => {
-            if (response.status === 200) {
-                flipTile()
-                if (wordle === guess) {
-                    setTimeout(() => document.getElementById('finished-section').style.display = 'flex', 3000)
-                    isGameOver = true;
-                } else {
-                    if (currentRow < rowTracker - 1) {
-                        currentRow++
-                        currentTile = 0
+        confirmWord(guess)
+            .then(response => response.json())
+            .then((response) => {
+                if (response.found === true) {
+                    flipTile()
+                    if (wordle === guess) {
+                        setTimeout(() => document.getElementById('finished-section').style.display = 'flex', 3000)
+                        isGameOver = true;
                     } else {
-                        extendRows()
-                        currentRow++
-                        currentTile = 0
+                        if (currentRow < rowTracker - 1) {
+                            currentRow++
+                            currentTile = 0
+                        } else {
+                            extendRows()
+                            currentRow++
+                            currentTile = 0
+                        }
                     }
+                } else if (response.found === false) {
+                    const messageBoard = document.getElementById('message-display')
+                    messageBoard.style.display = "flex"
+                    setTimeout(() => messageBoard.style.display = "none", 3000)
                 }
-            } else if (response.status === 404) {
-                const messageBoard = document.getElementById('message-display')
-                messageBoard.style.display = "flex"
-                setTimeout(() => messageBoard.style.display = "none", 3000)
-            }
-        })
+            })
     }
 
 }

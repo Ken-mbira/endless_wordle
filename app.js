@@ -4,13 +4,14 @@ const cors = require("cors")
 const fs = require("fs")
 
 const words = JSON.parse(fs.readFileSync('words.json', 'utf8'))
+const possibleWords = JSON.parse(fs.readFileSync('possibles.json', 'utf8'))
 
 const app = express()
 
 app.use(cors())
 
-app.get('/word', (req, res) => {
-    var index = Math.floor(Math.random() * words.length) + 1;
+app.get('/word', (_req, res) => {
+    var index = Math.floor(Math.random() * possibleWords.length) + 1;
     res.json({ "word": words[index].toUpperCase() })
 })
 
@@ -23,7 +24,7 @@ app.get('/check', (req, res, next) => {
         res.send(err)
     } else {
         let wordCheck = req.query.word.toLowerCase();
-        if (words.includes(wordCheck)) {
+        if (words.includes(wordCheck) || possibleWords.includes(wordCheck)) {
             res.status = 302
             res.send({ "found": true })
         } else {
