@@ -24,13 +24,13 @@ const getWordle = () => {
         .then(json => {
             wordle = json[0].toUpperCase()
         })
-        .catch(err => console.log(err))
 }
 getWordle()
 
 const confirmWord = (word) => {
     return fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
 }
+
 
 const keys = [
     'Q',
@@ -159,8 +159,6 @@ const checkRow = () => {
                 messageBoard.style.display = "flex"
                 setTimeout(() => messageBoard.style.display = "none", 3000)
             }
-        }).catch((error) => {
-            console.log(error)
         })
     }
 

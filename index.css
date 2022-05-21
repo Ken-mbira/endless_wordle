@@ -26,6 +26,7 @@ body {
     font-weight: 700;
     padding-left: 2rem;
     padding-right: 2rem;
+    font-display: swap;
 }
 
 .more-icons {
@@ -50,7 +51,7 @@ p {
     border: none;
     background-color: #818384;
     margin: 4px;
-    font-size: .7rem;
+    font-size: 1;
 }
 
 .key-container button:nth-child(11) {
