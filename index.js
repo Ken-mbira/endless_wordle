@@ -19,7 +19,7 @@ document.getElementById('play-again').addEventListener('click', () => {
 
 
 const getWordle = () => {
-    fetch(`${window.location.protocol}//${window.location.hostname}:8000/word`)
+    fetch(`${window.location.protocol}//${window.location.hostname}/endless-wordle:8000/word`)
         .then(response => response.json())
         .then(json => {
             wordle = json["word"]
@@ -28,7 +28,7 @@ const getWordle = () => {
 getWordle()
 
 const confirmWord = (word) => {
-    return fetch(`${window.location.protocol}//${window.location.hostname}:8000/check?word=${word}`)
+    return fetch(`${window.location.protocol}//${window.location.hostname}/endless-wordle:8000/check?word=${word}`)
 }
 
 
