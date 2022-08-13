@@ -1,28 +1,29 @@
 {
-  "name": "endless_worlde",
-  "version": "1.0.0",
-  "description": "[![Netlify Status](https://api.netlify.com/api/v1/badges/6b9c3206-dd5b-44f1-a750-db12a616c125/deploy-status)](https://app.netlify.com/sites/endless-wordle/deploys)",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ken-mbira/endless_worlde.git"
-  },
-  "author": "Ken Mbira",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ken-mbira/endless_worlde/issues"
-  },
-  "homepage": "https://github.com/Ken-mbira/endless_worlde#readme",
-  "keywords": [
-    "endless-wordle",
-    "wordle"
-  ],
-  "dependencies": {
-    "axios": "^0.27.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.1"
-  }
+    "name": "endless_worlde",
+    "version": "1.0.0",
+    "description": "[![Netlify Status](https://api.netlify.com/api/v1/badges/6b9c3206-dd5b-44f1-a750-db12a616c125/deploy-status)](https://app.netlify.com/sites/endless-wordle/deploys)",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "serve": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ken-mbira/endless_worlde.git"
+    },
+    "author": "Ken Mbira",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Ken-mbira/endless_worlde/issues"
+    },
+    "homepage": "https://github.com/Ken-mbira/endless_worlde#readme",
+    "keywords": [
+        "endless-wordle",
+        "wordle"
+    ],
+    "dependencies": {
+        "axios": "^0.27.2",
+        "cors": "^2.8.5",
+        "express": "^4.18.1"
+    }
 }
