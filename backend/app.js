@@ -1,37 +1,37 @@
-const PORT = 8000
-const express = require("express")
-const cors = require("cors")
-const fs = require("fs")
+const PORT = 8000;
+const express = require("express");
+const cors = require("cors");
+const fs = require("fs");
 
-const words = JSON.parse(fs.readFileSync('words.json', 'utf8'))
-const possibleWords = JSON.parse(fs.readFileSync('possibles.json', 'utf8'))
+const words = JSON.parse(fs.readFileSync('words.json', 'utf8'));
+const possibleWords = JSON.parse(fs.readFileSync('possibles.json', 'utf8'));
 
-const app = express()
+const app = express();
 
-app.use(cors())
+app.use(cors());
 
 app.get('/word', (_req, res) => {
     var index = Math.floor(Math.random() * possibleWords.length) + 1;
-    res.json({ "word": words[index].toUpperCase() })
-})
+    res.json({ "word": words[index].toUpperCase() });
+});
 
 app.get('/check', (req, res, next) => {
     if (!req.query.word) {
-        const err = new Error("Missing parameter 'word'")
+        const err = new Error("Missing parameter 'word'");
         err.status = 400;
-        err.message = "Missing parameter"
-        next(err)
-        res.send(err)
+        err.message = "Missing parameter";
+        next(err);
+        res.send(err);
     } else {
         let wordCheck = req.query.word.toLowerCase();
         if (words.includes(wordCheck) || possibleWords.includes(wordCheck)) {
-            res.status = 302
-            res.send({ "found": true })
+            res.status = 302;
+            res.send({ "found": true });
         } else {
-            res.status = 404
-            res.send({ "found": false })
+            res.status = 404;
+            res.send({ "found": false });
         }
     }
-})
+});
 
-app.listen(PORT)
+app.listen(PORT);
