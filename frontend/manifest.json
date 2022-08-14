@@ -10,26 +10,32 @@
     "icons": [{
         "src": "/assets/wordle_logo/wordle_logo_16x16.png",
         "sizes": "16x16",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "maskable"
     }, {
         "src": "/assets/wordle_logo/wordle_logo_32x32.png",
         "sizes": "32x32",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "maskable"
     }, {
         "src": "/assets/wordle_logo/wordle_logo_150x150.png",
         "sizes": "150x150",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "maskable"
     }, {
         "src": "/assets/wordle_logo/wordle_logo_180x180.png",
         "sizes": "180x180",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "maskable"
     }, {
         "src": "/assets/wordle_logo/wordle_logo_192x192.png",
         "sizes": "192x190",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "maskable"
     }, {
         "src": "/assets/wordle_logo/wordle_logo_512x512.png",
         "sizes": "512x512",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "maskable"
     }]
 }
