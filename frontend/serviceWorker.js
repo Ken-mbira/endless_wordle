@@ -7,6 +7,7 @@ const assets = [
     "/index.js",
     "/assets/wordle_logo/wordle_logo_16x16.png",
     "/assets/wordle_logo/wordle_logo_32x32.png",
+    "/assets/wordle_logo/wordle_logo_120x120.png",
     "/assets/wordle_logo/wordle_logo_150x150.png",
     "/assets/wordle_logo/wordle_logo_180x180.png",
     "/assets/wordle_logo/wordle_logo_192x192.png",
