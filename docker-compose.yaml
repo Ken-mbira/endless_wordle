@@ -4,8 +4,12 @@ services:
     build: frontend
     ports:
       - "4200:80"
+    volumes:
+      - ./frontend:/usr/src/app/frontend
 
   backend:
     build: backend
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/usr/src/app/backend
