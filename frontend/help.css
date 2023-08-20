@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+html,
+body {
+    height: 100%;
+    margin:0;
+    padding:0;
+}
+
+p {
+    margin: 0;
+    padding: 0
+}
+
+#help-link{
+    text-decoration: none;
+    color:white;
+}
+
+.example-tile-container {
+    display: flex;
+}
+
+.example-tile-container div {
+    display: flex;
+}
+
+.example-tile-container .tile {
+    width: 42px;
+    height: 42px;
+    border: 2px solid#3a3a3c;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.grey-overlay {
+    background-color: #3a3a3c !important;
+    border: none !important;
+}
+
+.yellow-overlay {
+    background-color: #b59f3a !important;
+    border: none !important;
+}
+
+.green-overlay {
+    background-color: #538d4e !important;
+    border: none !important;
+}
+
+
+#help-section {
+    justify-content: center;
+    height: 100%;
+    background-color: rgb(20, 19, 19);
+    color: white;
+}
+
+#help-section div {
+    padding-left: 1rem;
+    padding-right: 1rem
+}
+
+#help-title {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    align-items: center
+}
+
+#close-help-tab {
+    cursor: pointer;
+}
+
+.margin-ps {
+    margin-top: 1.5rem;
+    font-size: 1rem
+}
+
+.examples {
+    margin-bottom: 1rem;
+}

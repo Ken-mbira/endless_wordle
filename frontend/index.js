@@ -3,10 +3,6 @@ const keyboard = document.querySelector('.key-container')
 
 let wordle
 
-document.getElementById('help-icon').addEventListener('click', () => {
-    document.getElementById('help-section').style.display = 'flex'
-})
-
 document.getElementById('close-help-tab').addEventListener('click', () => {
     document.getElementById('help-section').style.display = 'none'
 })

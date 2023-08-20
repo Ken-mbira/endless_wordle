@@ -2,6 +2,8 @@
 html,
 body {
     height: 100%;
+    margin:0;
+    padding:0;
 }
 
 .game-display {
@@ -31,6 +33,11 @@ body {
 
 .more-icons {
     cursor: pointer;
+}
+
+#help-link{
+    text-decoration: none;
+    color:black;
 }
 
 p {
@@ -192,12 +199,8 @@ p {
 }
 
 #help-section {
-    display: none;
     justify-content: center;
-    width: 100%;
     height: 100%;
-    z-index: 1;
-    position: fixed;
     background-color: rgb(20, 19, 19);
     color: white;
 }
