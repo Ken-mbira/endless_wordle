@@ -1,12 +1,9 @@
-const tileContainer = document.querySelector('.tile-container')
-const keyboard = document.querySelector('.key-container')
+const tileContainer = document.querySelector('.tile-container');
+const keyboard = document.querySelector('.key-container');
 
-let wordle
+let wordle = "";
 
-document.getElementById('close-help-tab').addEventListener('click', () => {
-    document.getElementById('help-section').style.display = 'none'
-})
-
+// This happens after the game ends, so maybe include it there
 document.getElementById('play-again').addEventListener('click', () => {
     window.location.reload();
     document.getElementById('finished-section').style.display = 'none'
@@ -77,10 +74,17 @@ let guessRows = [
     ['', '', '', '', '']
 ]
 
+/** GameBoard class
+ * To render the tiles on the screen
+ * To track the position of the game, which row, column... etc
+ * To display what the user is entering
+ * To display the results of a user submission
+*/
+
 let currentTile = 0
 let currentRow = 0
 let rowTracker = 0
-let isGameOver = false
+let isGameOver = false // this is outside the game board functionality
 
 guessRows.forEach((guessRow, guessRowIndex) => {
     const rowElement = document.createElement('div')
@@ -94,6 +98,11 @@ guessRows.forEach((guessRow, guessRowIndex) => {
     tileContainer.append(rowElement)
     rowTracker++
 })
+
+/**Keyboard Class
+ * To render the keyboard on the screen
+ * To handle the inputs from the user, know exactly which key was pressed
+ */
 
 document.addEventListener("keydown", event => {
     if (event.key.toUpperCase() === "BACKSPACE") {
@@ -229,11 +238,11 @@ const addColorToKey = (keyLetter, color) => {
     key.classList.add(color)
 }
 
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function() {
-        navigator.serviceWorker
-            .register("/serviceWorker.js")
-            .then(res => console.log(res))
-            .catch(err => console.log("Service worker was not registered", err))
-    })
-}
+// if ("serviceWorker" in navigator) {
+//     window.addEventListener("load", function() {
+//         navigator.serviceWorker
+//             .register("/serviceWorker.js")
+//             .then(res => console.log(res))
+//             .catch(err => console.log("Service worker was not registered", err))
+//     })
+// }
