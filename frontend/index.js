@@ -237,12 +237,3 @@ const addColorToKey = (keyLetter, color) => {
     const key = document.getElementById(keyLetter)
     key.classList.add(color)
 }
-
-// if ("serviceWorker" in navigator) {
-//     window.addEventListener("load", function() {
-//         navigator.serviceWorker
-//             .register("/serviceWorker.js")
-//             .then(res => console.log(res))
-//             .catch(err => console.log("Service worker was not registered", err))
-//     })
-// }
