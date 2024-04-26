@@ -2,7 +2,7 @@ import { ALL_WORDS } from "./allWords.js";
 import { POSSIBLE_WORDS } from "./allWords.js";
 
 const NUMBER_OF_LETTERS_PER_WORD = 5;
-const INITIAL_NUMBER_OF_ROWS = 5;
+const INITIAL_NUMBER_OF_ROWS = 6;
 
 export class GameBoard {
     #container;
@@ -56,6 +56,20 @@ export class GameBoard {
             this.#container.append(rowElement);
             this.#rowCount++;
         }
+
+        this.scrollToView();
+    }
+
+    scrollToView() {
+        const finalRow = document.getElementById(`guessRow-${this.#rowCount-1}`);
+        const [left, bottom] = [finalRow.getBoundingClientRect().left, finalRow.getBoundingClientRect().bottom];
+
+        const tileContainer = document.querySelector('.tile-container');
+        tileContainer.scrollTo({
+            top: bottom,
+            left: left,
+            behavior: "smooth"
+        })
     }
 
     newLetter(letter) {

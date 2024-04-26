@@ -73,7 +73,7 @@ p {
     width: 330px;
     margin-bottom: 5rem;
     margin-top: 5rem;
-    min-height: 400px;
+    height: 405px;
     overflow-y: scroll;
 }
 
