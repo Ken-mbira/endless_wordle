@@ -1,8 +1,13 @@
+import { ALL_WORDS } from "./allWords.js";
+import { POSSIBLE_WORDS } from "./allWords.js";
+
 const NUMBER_OF_LETTERS_PER_WORD = 5;
 const INITIAL_NUMBER_OF_ROWS = 5;
 
 export class GameBoard {
     #container;
+    #cursor = [0,0]; // [rowPosition, tilePosition]
+    #chosenWord = "";
 
     constructor(
         containerElement
@@ -13,7 +18,15 @@ export class GameBoard {
 
         this.#container = containerElement;
 
+        this.#chosenWord = this.chooseWord();
+        console.log(this.#chosenWord)
+
         this.regenerateBoard(INITIAL_NUMBER_OF_ROWS);
+    }
+
+    chooseWord() {
+        let randomIndex = Math.floor(Math.random() * (POSSIBLE_WORDS.length - 1));
+        return POSSIBLE_WORDS[randomIndex];
     }
 
     clearBoard() {
@@ -35,12 +48,86 @@ export class GameBoard {
 
             for(let j=0; j<NUMBER_OF_LETTERS_PER_WORD; j++) {
                 const tileElement = document.createElement("div");
-                tileElement.setAttribute("id", `guessRow-${this.rowCount}-tile-${j}`);
+                tileElement.setAttribute("id", `guessRow-${i}-tile-${j}`);
                 tileElement.classList.add("tile");
                 rowElement.append(tileElement);
             }
 
             this.#container.append(rowElement);
+        }
+    }
+
+    newLetter(letter) {
+        const rowPosition = this.#cursor[0];
+        const tilePosition = this.#cursor[1];
+        console.log(rowPosition, tilePosition)
+
+
+        if(tilePosition < NUMBER_OF_LETTERS_PER_WORD) {
+            const tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${tilePosition}`);
+            tileElement.innerText = letter;
+            this.#cursor[1]+=1;
+        }
+
+    }
+
+    deleteLetter() {
+        const rowPosition = this.#cursor[0];
+        const tilePosition = this.#cursor[1];
+
+        if(tilePosition > 0) {
+            const tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${tilePosition-1}`);
+            tileElement.innerText = '';
+            this.#cursor[1]-=1;
+        }
+    }
+
+    checkWord() {
+        const rowPosition = this.#cursor[0];
+
+        const letters = Array.from(new Array(5)).map((_, index) => {
+            let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${index}`)
+            return tileElement.innerText;
+        })
+
+        const word = letters.join("").toLowerCase();
+
+        if(ALL_WORDS.includes(word)) {
+            // word found
+            for(let i=0; i<word.length; i++){
+                let cellValue = word[i];
+                let shouldBeCellValue = this.#chosenWord[i];
+
+                let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
+
+                if(cellValue === shouldBeCellValue){
+                    tileElement.classList.add('green-overlay');
+                }else if(this.#chosenWord.includes(cellValue)){
+                    tileElement.classList.add('yellow-overlay');
+                }else{
+                    tileElement.classList.add('grey-overlay');
+                }
+            }
+
+            this.#cursor = [rowPosition + 1, 0];
+
+        }else{
+            // word not found
+            let messageDisplay = document.getElementById("message-display");
+            messageDisplay.style.display = "flex";
+            setTimeout(() => {
+                messageDisplay.style.display = "none";
+            }, 1000)
+        }
+    }
+
+    handleKey(key){
+        if(key.length === 1) {
+            this.newLetter(key);
+        }else if(key === 'BACKSPACE'){
+            this.deleteLetter();
+        }else if(key === 'ENTER') {
+            this.checkWord();
         }
     }
 }

@@ -7,6 +7,5 @@ const keyboardContainer = document.querySelector('.key-container');
 const gameBoard = new GameBoard(tileContainer);
 
 const keyBoard = new Keyboard(keyboardContainer);
-keyBoard.subscribe((key) => {
-    console.log('heres the key', key)
-})
+
+keyBoard.subscribe(key => gameBoard.handleKey(key))
