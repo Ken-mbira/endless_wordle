@@ -198,13 +198,6 @@ p {
     }
 }
 
-#help-section {
-    justify-content: center;
-    height: 100%;
-    background-color: rgb(20, 19, 19);
-    color: white;
-}
-
 #finished-section {
     display: none;
     justify-content: center;
@@ -221,31 +214,6 @@ p {
     display: flex;
     justify-content: center;
     margin-top: .5rem;
-}
-
-#help-section div {
-    padding-left: 1rem;
-    padding-right: 1rem
-}
-
-#help-title {
-    display: flex;
-    justify-content: space-between;
-    height: fit-content;
-    align-items: center
-}
-
-#close-help-tab {
-    cursor: pointer;
-}
-
-.margin-ps {
-    margin-top: 1.5rem;
-    font-size: 1rem
-}
-
-.examples {
-    margin-bottom: 1rem;
 }
 
 #message-display {

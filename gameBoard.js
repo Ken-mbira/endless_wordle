@@ -19,7 +19,6 @@ export class GameBoard {
         this.#container = containerElement;
 
         this.#chosenWord = this.chooseWord();
-        console.log(this.#chosenWord)
 
         this.regenerateBoard(INITIAL_NUMBER_OF_ROWS);
     }
@@ -94,30 +93,38 @@ export class GameBoard {
 
         if(ALL_WORDS.includes(word)) {
             // word found
-            for(let i=0; i<word.length; i++){
-                let cellValue = word[i];
-                let shouldBeCellValue = this.#chosenWord[i];
-
-                let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
-
-                if(cellValue === shouldBeCellValue){
-                    tileElement.classList.add('green-overlay');
-                }else if(this.#chosenWord.includes(cellValue)){
-                    tileElement.classList.add('yellow-overlay');
-                }else{
-                    tileElement.classList.add('grey-overlay');
-                }
-            }
+            this.checkCells(word, this.#chosenWord, rowPosition);
 
             this.#cursor = [rowPosition + 1, 0];
-
         }else{
             // word not found
             let messageDisplay = document.getElementById("message-display");
             messageDisplay.style.display = "flex";
+
             setTimeout(() => {
                 messageDisplay.style.display = "none";
             }, 1000)
+        }
+    }
+
+    checkCells(checkWord, actualWord, rowPosition) {
+        for(let i=0; i<checkWord.length; i++){
+            let cellValue = checkWord[i];
+            let shouldBeCellValue = actualWord[i];
+
+            let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
+            
+            setTimeout(() => {
+                if(cellValue === shouldBeCellValue){
+                    tileElement.classList.add('green-overlay');
+                }else if(actualWord.includes(cellValue)){
+                    tileElement.classList.add('yellow-overlay');
+                }else{
+                    tileElement.classList.add('grey-overlay');
+                }
+
+                tileElement.classList.add('flip');
+            }, 500 * i)
         }
     }
 
