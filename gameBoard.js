@@ -9,13 +9,12 @@ export class GameBoard {
     #cursor = [0,0]; // [rowPosition, tilePosition]
     #chosenWord = "";
     #disabledInput = false; // whether input can come in from user
+    #rowCount = 0;
 
     constructor(
         containerElement
     ) {
         this.currentTile = 0;
-        this.currentRow = 0;
-        this.rowCount = 0;
 
         this.#container = containerElement;
 
@@ -37,23 +36,25 @@ export class GameBoard {
 
     regenerateBoard(noOfRows) {
         this.clearBoard();
-        this.generateTiles(noOfRows);
-        this.rowCount = noOfRows;
+        this.generateRows(noOfRows);
     }
 
-    generateTiles(newTilesCount) {
-        for(let i=0; i<=newTilesCount; i++) {
+    generateRows(newRowsCount) {
+        for(let i=0; i<newRowsCount; i++) {
+            const newRowPosition = this.#cursor[0] + i;
+
             const rowElement = document.createElement("div");
-            rowElement.setAttribute("id", `guessRow-${i}`);
+            rowElement.setAttribute("id", `guessRow-${newRowPosition}`);
 
             for(let j=0; j<NUMBER_OF_LETTERS_PER_WORD; j++) {
                 const tileElement = document.createElement("div");
-                tileElement.setAttribute("id", `guessRow-${i}-tile-${j}`);
+                tileElement.setAttribute("id", `guessRow-${newRowPosition}-tile-${j}`);
                 tileElement.classList.add("tile");
                 rowElement.append(tileElement);
             }
 
             this.#container.append(rowElement);
+            this.#rowCount++;
         }
     }
 
@@ -67,6 +68,16 @@ export class GameBoard {
             this.#cursor[1]+=1;
         }
 
+    }
+
+    nextRow() {
+        const rowPosition = this.#cursor[0];
+
+        this.#cursor = [rowPosition + 1, 0];
+
+        if(rowPosition == (this.#rowCount - 1)) {
+            this.generateRows(INITIAL_NUMBER_OF_ROWS);
+        }
     }
 
     deleteLetter() {
@@ -96,13 +107,13 @@ export class GameBoard {
 
             for(let i=0; i<word.length; i++){
                 let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
-
-                await this.flipTile(i, tileElement, this.#chosenWord);
+                const overlayColor = word[i] === this.#chosenWord[i] ? 'green-overlay' : this.#chosenWord.includes(word[i]) ? 'yellow-overlay' : 'grey-overlay';
+                await this.flipTile(tileElement, overlayColor);
             }
 
             this.#disabledInput = false;
 
-            this.#cursor = [rowPosition + 1, 0];
+            this.nextRow();
         }else{
             // word not found
             let messageDisplay = document.getElementById("message-display");
@@ -114,20 +125,10 @@ export class GameBoard {
         }
     }
 
-    flipTile(currentIndex, tileElement, actualWord) {
-        const cellValue = tileElement.innerText;
-        const expectedValue = actualWord[currentIndex];
-
+    flipTile(tileElement, overlayColor) {
         return new Promise((resolve) => {
             setTimeout(() => {
-                if(cellValue === expectedValue){
-                    tileElement.classList.add('green-overlay');
-                }else if(actualWord.includes(cellValue)){
-                    tileElement.classList.add('yellow-overlay');
-                }else{
-                    tileElement.classList.add('grey-overlay');
-                }
-
+                tileElement.classList.add(overlayColor);
                 tileElement.classList.add('flip');
                 resolve()
             }, 500)
