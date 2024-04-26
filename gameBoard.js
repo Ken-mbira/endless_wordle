@@ -8,6 +8,7 @@ export class GameBoard {
     #container;
     #cursor = [0,0]; // [rowPosition, tilePosition]
     #chosenWord = "";
+    #disabledInput = false; // whether input can come in from user
 
     constructor(
         containerElement
@@ -59,8 +60,6 @@ export class GameBoard {
     newLetter(letter) {
         const rowPosition = this.#cursor[0];
         const tilePosition = this.#cursor[1];
-        console.log(rowPosition, tilePosition)
-
 
         if(tilePosition < NUMBER_OF_LETTERS_PER_WORD) {
             const tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${tilePosition}`);
@@ -81,7 +80,7 @@ export class GameBoard {
         }
     }
 
-    checkWord() {
+    async checkWord() {
         const rowPosition = this.#cursor[0];
 
         const letters = Array.from(new Array(5)).map((_, index) => {
@@ -93,7 +92,15 @@ export class GameBoard {
 
         if(ALL_WORDS.includes(word)) {
             // word found
-            this.checkCells(word, this.#chosenWord, rowPosition);
+            this.#disabledInput = true; // we need to disable key input until the check cells function finishes going through all the cells
+
+            for(let i=0; i<word.length; i++){
+                let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
+
+                await this.flipTile(i, tileElement, this.#chosenWord);
+            }
+
+            this.#disabledInput = false;
 
             this.#cursor = [rowPosition + 1, 0];
         }else{
@@ -107,15 +114,13 @@ export class GameBoard {
         }
     }
 
-    checkCells(checkWord, actualWord, rowPosition) {
-        for(let i=0; i<checkWord.length; i++){
-            let cellValue = checkWord[i];
-            let shouldBeCellValue = actualWord[i];
+    flipTile(currentIndex, tileElement, actualWord) {
+        const cellValue = tileElement.innerText;
+        const expectedValue = actualWord[currentIndex];
 
-            let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
-            
+        return new Promise((resolve) => {
             setTimeout(() => {
-                if(cellValue === shouldBeCellValue){
+                if(cellValue === expectedValue){
                     tileElement.classList.add('green-overlay');
                 }else if(actualWord.includes(cellValue)){
                     tileElement.classList.add('yellow-overlay');
@@ -124,17 +129,20 @@ export class GameBoard {
                 }
 
                 tileElement.classList.add('flip');
-            }, 500 * i)
-        }
+                resolve()
+            }, 500)
+        })
     }
 
     handleKey(key){
-        if(key.length === 1) {
-            this.newLetter(key);
-        }else if(key === 'BACKSPACE'){
-            this.deleteLetter();
-        }else if(key === 'ENTER') {
-            this.checkWord();
+        if(!this.#disabledInput) {
+            if(key.length === 1) {
+                this.newLetter(key);
+            }else if(key === 'BACKSPACE'){
+                this.deleteLetter();
+            }else if(key === 'ENTER') {
+                this.checkWord();
+            }
         }
     }
 }
