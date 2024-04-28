@@ -26,7 +26,9 @@ jobs:
         run: echo "${{ secrets.VM_IP }}" > inventory
 
       - name: Create password from secret
-        run: echo "${{ secrets.VM_PASSWORD }}" > vm_password.txt
+        run: |
+          echo "${{ secrets.VM_PASSWORD }}" > vm_password.txt
+          cat vm_password.txt
 
       - name: Execute Ansible Playbook
         run: |
