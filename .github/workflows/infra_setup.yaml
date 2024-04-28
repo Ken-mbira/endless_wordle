@@ -1,0 +1,35 @@
+name: Configure VM
+
+on:
+  workflow_dispatch:
+
+jobs:
+  launch-instance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python for Ansible
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Ansible
+        run: python -m pip install --upgrade pip && pip install ansible
+
+      - name: Setup nginx conf contents
+        run: |
+          echo "ENDLESS_WORDLE_NGINX_CONF=$(cat ./ansible/nginx/endless_wordle.conf | base64 -w 0)" >> $GITHUB_ENV
+
+      - name: Create inventory from secret
+        run: echo "${{ secrets.VM_IP }}" > inventory
+
+      - name: Execute Ansible Playbook
+        run: |
+          ansible-playbook -i inventory ./ansible/infra/setup.yaml -u ubuntu
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+          ENDLESS_WORDLE_NGINX_CONF: ${{ env.ENDLESS_WORLDLE_NGINX_CONF }}
+          CERTBOT_EMAIL: ${{ secrets.CERTBOT_EMAIL }}
+          ENDLESS_WORDLE_DOMAIN_NAME: ${{ secrets.ENDLESS_WORDLE_DOMAIN_NAME }}

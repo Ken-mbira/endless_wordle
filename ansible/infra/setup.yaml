@@ -1,0 +1,43 @@
+- name: Setup VM
+  hosts: all
+  become: true
+
+  vars:
+    ansible_user: ubuntu
+    endless_wordle_domain_name: "{{ lookup('env', 'ENDLESS_WORDLE_DOMAIN_NAME') }}"
+    endless_wordle_nginx_conf: "{{ lookup('env', 'ENDLESS_WORDLE_NGINX_CONF') | b64decode }}"
+    email: "{{ lookup('env', 'CERTBOT_EMAIL') }}"
+
+  tasks:
+
+# setup nginx
+    - name: Install Nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Copy Endless Wordle Nginx Configuration
+      ansible.builtin.copy:
+        content: "{{ endless_wordle_nginx_conf }}"
+        dest: "/etc/nginx/conf.d/endless_wordle.conf"
+      notify: reload nginx
+
+# setup certbot
+    - name: Install Certbot and request an SSL certificate (Ubuntu)
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      loop:
+        - certbot
+        - python3-certbot-nginx
+
+    - name: Request SSL certificate for Nginx (Ubuntu)
+      ansible.builtin.shell: |
+        sudo certbot --nginx -d "{{ endless_wordle_domain_name }}" --non-interactive --agree-tos --email "{{ email }}" --expand
+
+  handlers:
+    - name: reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
