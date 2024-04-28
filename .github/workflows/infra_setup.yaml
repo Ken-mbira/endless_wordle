@@ -25,9 +25,12 @@ jobs:
       - name: Create inventory from secret
         run: echo "${{ secrets.VM_IP }}" > inventory
 
+      - name: Create password from secret
+        run: echo "${{ secrets.VM_PASSWORD }}" > vm_password.txt
+
       - name: Execute Ansible Playbook
         run: |
-          ansible-playbook -i inventory ./ansible/infra/setup.yaml -u ubuntu
+          ansible-playbook -i inventory ./ansible/infra/setup.yaml --vault-password-file vm_password.txt -u ubuntu
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
           ENDLESS_WORDLE_NGINX_CONF: ${{ env.ENDLESS_WORLDLE_NGINX_CONF }}
