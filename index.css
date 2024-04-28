@@ -37,6 +37,7 @@ body {
 #help-link{
     text-decoration: none;
     color:black;
+    cursor: pointer;
 }
 
 p {
@@ -254,4 +255,9 @@ p {
     border-radius: 5px;
     padding: 7px;
     cursor: pointer
+}
+
+#dynamic-dialog {
+    border-radius: 10px;
+    border: none;
 }
