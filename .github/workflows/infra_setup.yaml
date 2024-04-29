@@ -21,8 +21,8 @@ jobs:
       - name: Prepare SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VM_PRIVATE_KEY }}" > ~/.ssh/id_rsa.pem
-          chmod 600 ~/.ssh/id_rsa.pem
+          echo "${{ secrets.VM_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{secrets.VM_IP}} >> ~/.ssh/known_hosts
 
       - name: Setup nginx conf contents
@@ -32,7 +32,7 @@ jobs:
         run: echo "${{ secrets.VM_IP }}" > inventory
 
       - name: Execute Ansible Playbook
-        run: ansible-playbook -i inventory ./ansible/infra/setup.yaml --private-key ~/.ssh/id_rsa.pem
+        run: ansible-playbook -i inventory ./ansible/infra/setup.yaml --private-key ~/.ssh/id_rsa
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
           ENDLESS_WORDLE_NGINX_CONF: ${{ env.ENDLESS_WORLDLE_NGINX_CONF }}
