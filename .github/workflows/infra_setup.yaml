@@ -22,8 +22,6 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.VM_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{secrets.VM_IP}} >> ~/.ssh/known_hosts
 
       - name: Setup nginx conf contents
         run: echo "ENDLESS_WORDLE_NGINX_CONF=$(cat ./ansible/nginx/endless_wordle.conf | base64 -w 0)" >> $GITHUB_ENV
