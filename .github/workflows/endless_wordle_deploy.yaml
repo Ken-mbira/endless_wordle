@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare IP
-        run: ssh-keyscan -H ${{secrets.VM_IP}} >> ~/.ssh/known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{secrets.VM_IP}} >> ~/.ssh/known_hosts
 
       - name: Copy files over
         uses: appleboy/scp-action@v0.1.7
