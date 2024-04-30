@@ -33,7 +33,6 @@ jobs:
       - name: Execute Ansible Playbook
         run: ansible-playbook -i inventory ./ansible/infra/setup.yaml --private-key ~/.ssh/id_rsa
         env:
-          ANSIBLE_HOST_KEY_CHECKING: False
           ENDLESS_WORDLE_NGINX_CONF: ${{ env.ENDLESS_WORLDLE_NGINX_CONF }}
           CERTBOT_EMAIL: ${{ secrets.CERTBOT_EMAIL }}
           ENDLESS_WORDLE_DOMAIN_NAME: ${{ secrets.ENDLESS_WORDLE_DOMAIN_NAME }}
