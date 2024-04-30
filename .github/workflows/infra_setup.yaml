@@ -32,7 +32,7 @@ jobs:
         run: echo "${{ secrets.VM_IP }}" > inventory
 
       - name: Execute Ansible Playbook
-        run: ansible-playbook -vvv -i inventory ./ansible/infra/setup.yaml --private-key ~/.ssh/id_rsa -u root
+        run: ansible-playbook -i inventory ./ansible/infra/setup.yaml --private-key ~/.ssh/id_rsa -u root
         env:
           ENDLESS_WORDLE_NGINX_CONF: ${{ env.ENDLESS_WORLDLE_NGINX_CONF }}
           CERTBOT_EMAIL: ${{ secrets.CERTBOT_EMAIL }}
