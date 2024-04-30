@@ -3,7 +3,6 @@
   become: true
 
   vars:
-    ansible_user: ubuntu
     endless_wordle_domain_name: "{{ lookup('env', 'ENDLESS_WORDLE_DOMAIN_NAME') }}"
     endless_wordle_nginx_conf: "{{ lookup('env', 'ENDLESS_WORDLE_NGINX_CONF') | b64decode }}"
     email: "{{ lookup('env', 'CERTBOT_EMAIL') }}"
