@@ -19,10 +19,14 @@
 
 # setup nginx
     - name: Install Nginx
-      apt:
+      ansible.builtin.package:
         name: nginx
         state: present
-      notify: reload nginx
+
+    # create command to echo to the ansible output
+    - name: Echo Endless Wordle Nginx Configuration
+      ansible.builtin.command:
+        cmd: echo "{{ endless_wordle_nginx_conf }}"
 
     - name: Copy Endless Wordle Nginx Configuration
       ansible.builtin.copy:
