@@ -11,9 +11,10 @@
 
 # setup nginx
     - name: Install Nginx
-      ansible.builtin.package:
+      apt:
         name: nginx
         state: present
+      notify: reload nginx
 
     - name: Copy Endless Wordle Nginx Configuration
       ansible.builtin.copy:
