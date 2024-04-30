@@ -17,7 +17,7 @@ jobs:
         run: ssh-keyscan -H ${{secrets.VM_IP}} >> ~/.ssh/known_hosts
 
       - name: Copy files over
-        uses: appleboy/scp-action@0.1.7
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VM_IP }}
           username: root
