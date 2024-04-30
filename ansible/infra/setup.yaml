@@ -9,6 +9,14 @@
 
   tasks:
 
+# update packages
+    - name: Update packages
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+        name: "*"
+        state: latest
+
 # setup nginx
     - name: Install Nginx
       apt:
