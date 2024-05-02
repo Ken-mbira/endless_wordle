@@ -11,6 +11,8 @@ export class GameBoard {
     #disabledInput = false; // whether input can come in from user
     #rowCount = 0;
 
+    #shadeButtonObserver = [];
+
     constructor(
         containerElement
     ) {
@@ -21,6 +23,14 @@ export class GameBoard {
         this.#chosenWord = this.chooseWord();
 
         this.regenerateBoard(INITIAL_NUMBER_OF_ROWS);
+    }
+
+    subscribeShadeButton(shadeButtonFunction) {
+        this.#shadeButtonObserver.push(shadeButtonFunction);
+    }
+
+    shadeButton(character, color) {
+        this.#shadeButtonObserver.forEach(observer => observer(character, color));
     }
 
     chooseWord() {
@@ -122,6 +132,7 @@ export class GameBoard {
             for(let i=0; i<word.length; i++){
                 let tileElement = document.getElementById(`guessRow-${rowPosition}-tile-${i}`);
                 const overlayColor = word[i] === this.#chosenWord[i] ? 'green-overlay' : this.#chosenWord.includes(word[i]) ? 'yellow-overlay' : 'grey-overlay';
+                this.shadeButton(word[i].toUpperCase(), overlayColor);
                 await this.flipTile(tileElement, overlayColor);
             }
 

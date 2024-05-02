@@ -41,6 +41,15 @@ export class Keyboard {
         this.listenForActualKeyboard();
     }
 
+    shadeKey(character, colorClass) {
+        const allButtons = this.#container.querySelectorAll("button");
+        const buttonElement = Array.from(allButtons).filter(button => {
+            return button.textContent === character;
+        })[0];
+
+        buttonElement.classList.add(colorClass);
+    }
+
     renderKeyboard() {
         for(let i=0; i<KEYS.length; i++) {
             const buttonElement = document.createElement("button");

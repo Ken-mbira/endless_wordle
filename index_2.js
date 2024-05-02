@@ -12,6 +12,8 @@ const keyBoard = new Keyboard(keyboardContainer);
 
 keyBoard.subscribe(key => gameBoard.handleKey(key))
 
+gameBoard.subscribeShadeButton((character, colorClass) => keyBoard.shadeKey(character, colorClass));
+
 helpButton.addEventListener('click', async () => {
     showDialog(dialogContainer);
 })
